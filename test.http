@@ -1,0 +1,71 @@
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "hipicon",
+  "password": "password"
+}
+
+> {% client.global.set("auth_token", response.body.token); %}
+
+###
+
+POST {{host}}/products
+Content-Type: application/json
+Authorization: Bearer {{auth_token}} // eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJoaXBpY29uIiwiaWF0IjoxNzQyODQ4NzY5LCJleHAiOjE3NDI5MzUxNjl9.bfwtroOuGOwjxEz0i149-m8RJuVBlEOkgH6TWxAnZ_ZgxII6xoBScQbToKc5Uyo5
+
+{
+  "name": "Product 1",
+  "sellerName": "Brand 1",
+  "price": 100,
+  "stock": 10,
+  "description": "Description 1",
+  "imageUrls": ["https://via.placeholder.com/150"]
+}
+
+###
+
+POST {{host}}/products
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "name": "Product 2",
+  "sellerName": "Brand 2",
+  "price": 100,
+  "stock": 3,
+  "description": "Description 2",
+  "imageUrls": ["https://via.placeholder.com/150"]
+}
+
+###
+
+GET {{host}}/products
+Authorization: Bearer {{auth_token}}
+
+###
+
+PUT {{host}}/products/2/status
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "status": "ACTIVE"
+}
+
+###
+GET {{host}}/products/samenameproducts?name=product1
+Authorization: Bearer {{auth_token}}
+###
+
+###
+POST {{host}}/products/filter
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "searchTerm": "Product 1",
+  "status": [],
+  "page": 1
+}
+###
