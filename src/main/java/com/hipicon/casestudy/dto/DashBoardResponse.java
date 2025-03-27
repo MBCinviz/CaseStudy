@@ -13,5 +13,5 @@ import java.util.List;
 public class DashBoardResponse {
     private Long totalProducts;
     private Integer totalStock;
-    private List<Product> lowStockProducts;
+    private List<ProductDto> lowStockProducts;
 }

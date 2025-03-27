@@ -19,38 +19,38 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping
+    @PostMapping//Yeni ürün ekleme
     public ResponseEntity<ProductDto> addProduct(@Valid @RequestBody ProductRequest productRequest) {
         ProductDto newProduct = productService.addProduct(productRequest);
         return ResponseEntity.ok(newProduct);
     }
 
-    @PutMapping("/{id}/status")
-    public ResponseEntity<Product> updateProductStatus(@PathVariable Long id,
+    @PutMapping("/{id}/status")//Mevcut ürünü güncelleme
+    public ResponseEntity<ProductDto> updateProductStatus(@PathVariable Long id,
                                                        @RequestBody ProductStatusRequest statusRequest) {
-        Product updatedProduct = productService.updateProductStatus(id, statusRequest);
+        ProductDto updatedProduct = productService.updateProductStatus(id, statusRequest);
         return ResponseEntity.ok(updatedProduct);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Product>> getUserProducts() {
-        List<Product> products = productService.getUserProducts();
+    @GetMapping("/userproducts")//Kullanıcıya ait ürünleri listeleme
+    public ResponseEntity<List<ProductDto>> getUserProducts() {
+        List<ProductDto> products = productService.getUserProducts();
         return ResponseEntity.ok(products);
     }
 
-    @PostMapping("/filter")
+    @PostMapping("/filter")// Filtreleme yapma
     public ResponseEntity<Page<ProductDto>> getFilteredProducts(@RequestBody ProductFilterDto dto) {
         Page<ProductDto> products = productService.getFilteredProducts(dto);
         return ResponseEntity.ok(products);
     }
 
-    @GetMapping("/dashboard")
+    @GetMapping("/dashboard")//Dashboard verileri
     public ResponseEntity<DashBoardResponse> getUserDashboard() {
         DashBoardResponse dashboard = productService.getUserDashboard();
         return ResponseEntity.ok(dashboard);
     }
 
-    @GetMapping("/samenameproducts")
+    @GetMapping("/samenameproducts")//Aynı isimli ürünler
     public ResponseEntity<?> getSameNameProducts(@RequestParam String name) {
         List<ProductDto> products = productService.getSameNameProducts(name);
 

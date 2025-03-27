@@ -18,7 +18,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // Create default user if it doesn't exist
+
         if (!userRepository.existsByUsername("hipicon")) {
             User user = new User();
             user.setUsername("hipicon");
